@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { Kafka } = require('kafkajs')
 require("dotenv").config();
 
 const app = express();
@@ -10,6 +11,12 @@ app.use(express.json());
 
 const cors = require("cors");
 app.use(cors());
+
+app.use(bodyParser.json())
+
+const kafka = new Kafka({ clientId: 'chat-app', brokers: ['localhost:9092'] })
+const producer = kafka.producer()
+const consumer = kafka.consumer({ groupId: 'chat-group' })
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => console.log("MongoDB connected")).catch((err) => console.log(err));
@@ -57,6 +64,29 @@ const authMiddleware = (req, res, next) => {
 app.get("/protected", authMiddleware, (req, res) => {
     res.json({ message: "Protected data", user: req.user });
 });
+
+app.post('/send-message', async (req, res) => {
+    const { to, message } = req.body
+    await producer.connect()
+    await producer.send({
+      topic: to,
+      messages: [{ value: message }]
+    })
+    res.json({ status: 'Message sent' })
+  })
+  
+  app.get('/receive-messages/:userId', async (req, res) => {
+    const { userId } = req.params
+    await consumer.connect()
+    await consumer.subscribe({ topic: userId, fromBeginning: true })
+    const messages = []
+    await consumer.run({
+      eachMessage: async ({ message }) => {
+        messages.push(message.value.toString())
+      }
+    })
+    res.json({ messages })
+  })
 
 // Start Server
 app.listen(port, () => console.log(`Server running on port ${port}`));
