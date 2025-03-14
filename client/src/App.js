@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import SignupPage from './components/Signup';
 import LoginPage from './components/Loginpage';
-import Mainpage from './components/Mainpage';
 import LandingPage from './screen/LandingPage';
 import Layout from './components/Layout';
 import Groups from './screen/Groups';
