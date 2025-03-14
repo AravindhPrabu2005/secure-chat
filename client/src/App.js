@@ -3,6 +3,12 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import SignupPage from './components/Signup';
 import LoginPage from './components/Loginpage';
 import Mainpage from './components/Mainpage';
+import LandingPage from './screen/LandingPage';
+import Layout from './components/Layout';
+import Groups from './screen/Groups';
+import Chat from './screen/Chat';
+import Voice from './screen/Voice';
+import Search from './screen/Search';
 
 const PrivateRoute = ({ element }) => {
   const isAuthenticated = localStorage.getItem('token');
@@ -15,7 +21,17 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route path="/" element={<PrivateRoute element={<Mainpage />} />} />
+         <Route path="/" element={<LandingPage />} />
+         {/* <Route path="/chat" element={<PrivateRoute element={<Mainpage />} />} /> */}
+         <Route path="/dashboard"element={<Layout/>}>
+          
+            <Route path="groups" element={<Groups/>}/>
+            <Route path="chat" element={<Chat/>}/>
+            <Route path="voice" element={<Voice/>}/>
+            <Route path="search" element={<Search/>}/>
+
+         </Route>
+         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
   );
