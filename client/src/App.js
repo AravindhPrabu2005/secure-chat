@@ -22,7 +22,7 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
          <Route path="/" element={<LandingPage />} />
          {/* <Route path="/chat" element={<PrivateRoute element={<Mainpage />} />} /> */}
-         <Route path="/dashboard"element={<Layout/>}>
+         <Route path="/dashboard"element={<PrivateRoute element={<Layout/>} />}>
           
             <Route path="groups" element={<Groups/>}/>
             <Route path="chat" element={<Chat/>}/>

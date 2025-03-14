@@ -7,9 +7,11 @@ const generateToken = (user) => {
 };
 
 const registerUser = async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password ,publicKey } = req.body;
+    console.log(req.body);
+    
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ email, password: hashedPassword });
+    const user = new User({ email, password: hashedPassword , publicKey });
     await user.save();
     res.json({ message: "User registered" });
 };
@@ -18,7 +20,7 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user || !(await bcrypt.compare(password, user.password))) {
-        return res.status(401).json({ error: "Invalid credentials" });
+        return res.json({ error: "Invalid credentials" }).status(401);
     }
     const token = generateToken(user);
     res.json({ token });

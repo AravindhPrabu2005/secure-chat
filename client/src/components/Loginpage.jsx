@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+
 export default function LoginPage() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     publickey:''
   });
+
+  
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,13 +17,13 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${process.env.REACT_APP_Backend_URI}/login`, {
+      const response = await axios.post(`${process.env.REACT_APP_Backend_URI}/api/login`, {
         email: formData.email,
         password: formData.password
       });
-       
+       console.log(response.data); 
       localStorage.setItem('token', response.data.token);
-      window.location.href = '/chat';
+      window.location.href = '/dashboard/chat';
     } catch (error) {
       console.error('Error logging in:', error);
       alert('Login failed. Please try again.');

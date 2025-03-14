@@ -14,7 +14,6 @@ app.use(cors());
 connectDB().then(() => {
     app.use("/api", authRoutes);
     app.use("/api", userRoutes);
-
     const port = 5000;
     app.listen(port, () => console.log(`Server running on port ${port}`));
 }).catch((err) => {

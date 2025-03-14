@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { genKeys } from '../utils/RSA';
+import { Link, useNavigate } from "react-router-dom";
 
 export default function SignupPage() {
+
+
+     let nav  = useNavigate();
      const [formData, setFormData] = useState({
           name: '',
           email: '',
@@ -14,12 +19,18 @@ export default function SignupPage() {
 
      const handleSubmit = async (e) => {
           e.preventDefault();
-          try {
-               const response = await axios.post(`${process.env.REACT_APP_Backend_URI}/register`, {
+          try { 
+               const keys = genKeys();
+               console.log(keys);
+               console.log(process.env.REACT_APP_Backend_URI);
+               
+               const response = await axios.post(`${process.env.REACT_APP_Backend_URI}/api/register`, {
                     email: formData.email,
-                    password: formData.password
+                    password: formData.password,
+                    publicKey: keys.publicKey
                });
                alert(response.data.message);
+               nav('/login');
           } catch (error) {
                console.error('Error registering user:', error);
                alert('Registration failed. Please try again.');
