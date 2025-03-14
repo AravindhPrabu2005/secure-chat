@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
+
+  const nav =useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -22,8 +25,15 @@ export default function LoginPage() {
         password: formData.password
       });
        console.log(response.data); 
+       let res = response.data;
+       if(res.token){
       localStorage.setItem('token', response.data.token);
-      window.location.href = '/dashboard/chat';
+      localStorage.setItem('user', JSON.stringify(response.data.user));
+      nav('/dashboard/chat');
+        }
+        else{
+          alert('Login failed. Please try again.');
+        }
     } catch (error) {
       console.error('Error logging in:', error);
       alert('Login failed. Please try again.');

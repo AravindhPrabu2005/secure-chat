@@ -14,6 +14,9 @@ const PrivateRoute = ({ element }) => {
   return isAuthenticated ? element : <Navigate to="/login" />;
 };
 
+
+
+
 function App() {
   return (
     <Router>
@@ -23,12 +26,10 @@ function App() {
          <Route path="/" element={<LandingPage />} />
          {/* <Route path="/chat" element={<PrivateRoute element={<Mainpage />} />} /> */}
          <Route path="/dashboard"element={<PrivateRoute element={<Layout/>} />}>
-          
             <Route path="groups" element={<Groups/>}/>
             <Route path="chat" element={<Chat/>}/>
             <Route path="voice" element={<Voice/>}/>
             <Route path="search" element={<Search/>}/>
-
          </Route>
          <Route path="*" element={<Navigate to="/" />} />
       </Routes>

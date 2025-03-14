@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 const SideBar = () => {
     const nav = useNavigate()
   return (
-    <nav className=" w-[20%] font-inter">
+    <nav className=" w-[15%] font-inter">
       <p className=" p-5 text-xl font-bold font-space">Secure Chat</p>
       <div className="flex flex-col gap-2 h-screen px-4 bg-white">
          <Link to={"/dashboard/chat"}>

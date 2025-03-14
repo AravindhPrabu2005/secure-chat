@@ -29,6 +29,7 @@ export default function SignupPage() {
                     password: formData.password,
                     publicKey: keys.publicKey
                });
+               localStorage.setItem('keys', JSON.stringify(keys.privateKey));
                alert(response.data.message);
                nav('/login');
           } catch (error) {

@@ -23,7 +23,7 @@ const loginUser = async (req, res) => {
         return res.json({ error: "Invalid credentials" }).status(401);
     }
     const token = generateToken(user);
-    res.json({ token });
+    res.json({ token ,user });
 };
 
 const protectedRoute = (req, res) => {

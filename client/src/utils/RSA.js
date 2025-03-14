@@ -16,11 +16,11 @@ import JSEncrypt from "jsencrypt";
 
 
   const decryptMessage = (privateKey,encryptedMessage) => {
-    console.log("Decrypting message...");
 
     const decryptor = new JSEncrypt();
-    decryptor.setPrivateKey(privateKey);
-    return (decryptor.decrypt(encryptedMessage));
+
+
+    return decryptor.decrypt(encryptedMessage);
   };
 
 
