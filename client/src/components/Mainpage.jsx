@@ -1,9 +1,21 @@
-import React from 'react'
+import { useState } from 'react'
+import Sidebar from './Sidebar'
+import Chat from './chat'
 
-const Mainpage = () => {
+
+const MainPage = () => {
+  const [selectedUser, setSelectedUser] = useState(null)
+
+  const handleUserClick = (user) => {
+    setSelectedUser(user)
+  }
+
   return (
-    <h1>Mainpage</h1>
+    <div className="flex">
+      <Sidebar onUserClick={handleUserClick} />
+      <Chat selectedUser={selectedUser} />
+    </div>
   )
 }
 
-export default Mainpage
+export default MainPage
