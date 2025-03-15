@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { User2 } from "lucide-react"
 
-const UserList = ({ onSelectUser }) => {
+const UserList = ({ onSelectUser, selectedUser }) => {
   const [users, setUsers] = useState([])
   const [searchTerm, setSearchTerm] = useState("")
 
@@ -48,8 +49,13 @@ const UserList = ({ onSelectUser }) => {
               exit={{ opacity: 0, x: 20 }}
               transition={{ duration: 0.3 }}
               onClick={() => onSelectUser(u)}
-              className="p-4 rounded-lg mx-4 my-2 cursor-pointer transition hover:bg-gray-100"
+              className={`p-4 rounded-lg mx-4 my-2 cursor-pointer flex items-center gap-3 transition ${
+                selectedUser && selectedUser._id === u._id
+                  ? "bg-blue-100"
+                  : "hover:bg-gray-100"
+              }`}
             >
+              <User2 className="w-5 h-5 text-gray-600" />
               <p className="text-gray-800">{u.name}</p>
             </motion.div>
           ))}
