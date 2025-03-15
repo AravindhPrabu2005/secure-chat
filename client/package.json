@@ -8,6 +8,8 @@
     "crypto-browserify": "^3.12.1",
     "crypto-js": "^4.2.0",
     "dotenv": "^16.4.7",
+    "framer-motion": "^12.5.0",
+    "fuse.js": "^7.1.0",
     "jsencrypt": "^3.3.2",
     "lucide-react": "^0.479.0",
     "react": "^19.0.0",

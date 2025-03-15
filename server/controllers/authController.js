@@ -7,14 +7,13 @@ const generateToken = (user) => {
 };
 
 const registerUser = async (req, res) => {
-    const { email, password ,publicKey } = req.body;
-    console.log(req.body);
-    
+    const { name, email, password, publicKey } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ email, password: hashedPassword , publicKey });
+    const user = new User({ name, email, password: hashedPassword, publicKey });
     await user.save();
     res.json({ message: "User registered" });
 };
+
 
 const loginUser = async (req, res) => {
     const { email, password } = req.body;

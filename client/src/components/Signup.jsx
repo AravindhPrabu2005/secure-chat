@@ -25,6 +25,7 @@ export default function SignupPage() {
                console.log(process.env.REACT_APP_Backend_URI);
                
                const response = await axios.post(`${process.env.REACT_APP_Backend_URI}/api/register`, {
+                    name: formData.name,
                     email: formData.email,
                     password: formData.password,
                     publicKey: keys.publicKey
