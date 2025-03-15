@@ -79,23 +79,27 @@ const Chat = () => {
             </div>
           ))}
       </div>
-      <div>
+   
         {selectedUser && (
-          <div>
-            <div>
+          <div className=" w-full ">
+         
               {messages.map((msg, index) => (
                 <div
                   key={index}
-                  className={`p-3 m-2 rounded-lg ${
+                  className={`p-3 m-2 flex rounded-lg  ${
                     msg.sender === "me"
-                      ? "bg-gray-200 text-right"
-                      : "bg-gray-300 text-left"
+                      ? " justify-start"
+                      : " justify-end "
                   }`}
                 >
-                  {msg.message}
+                  <p  className={`p-3  rounded-lg w-fit  ${
+                    msg.sender === "me"
+                      ? "bg-primary text-white text-right"
+                      : "bg-gray-300  text-left  "
+                  }`}>{msg.message}</p>
                 </div>
               ))}
-            </div>
+         
             <div className="flex p-8 w-[50%] items-center justify-center gap-3 absolute bottom-4">
               <input
                 value={message}
@@ -116,7 +120,7 @@ const Chat = () => {
           </div>
         )}
       </div>
-    </div>
+   
   );
 };
 
